@@ -8,6 +8,7 @@ export class BackendStack extends Stack {
     new NodejsFunction(this, 'SampleFunction', {
       entry: './handler/sample.ts',
       bundling: {
+        target: 'es2020',
         sourceMap: true,
       },
     });
