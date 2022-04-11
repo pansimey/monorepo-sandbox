@@ -1,0 +1,11 @@
+{
+  "workspaces": [
+    "packages/cdk",
+    "packages/backend",
+    "packages/frontend"
+  ],
+  "volta": {
+    "node": "16.14.2",
+    "npm": "8.6.0"
+  }
+}
