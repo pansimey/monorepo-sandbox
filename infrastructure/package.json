@@ -1,5 +1,5 @@
 {
-  "name": "@apps/cdk",
+  "name": "@apps/infrastructure",
   "version": "1.0.0",
   "private": true,
   "scripts": {

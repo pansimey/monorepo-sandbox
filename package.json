@@ -1,6 +1,6 @@
 {
   "workspaces": [
-    "cdk",
+    "infrastructure",
     "backend",
     "frontend",
     "sup"
