@@ -1,21 +1,21 @@
-import { Readable } from "stream";
+import { Readable } from 'stream';
 
 export class BusinessError extends Error {
-  type = "BusinessError" as const;
+  type = 'BusinessError' as const;
 
   toJSON() {
     return {
       type: this.type,
       name: this.name,
       message: this.message,
-      stack: this.stack?.split("\n"),
+      stack: this.stack?.split('\n'),
     };
   }
 }
 
 export const ResultType = {
-  FAILURE: "Failure",
-  SUCCESS: "Success",
+  FAILURE: 'Failure',
+  SUCCESS: 'Success',
 } as const;
 
 type ResultType = typeof ResultType[keyof typeof ResultType];
@@ -40,11 +40,11 @@ export interface ApplicationService<T, U, E extends BusinessError, V> {
   (registry: T): ServiceOutput<U, E, V>;
 }
 
-const NODE_ENV = process.env["NODE_ENV"];
-const PRODUCTION = "production" as const;
-const END = "end" as const;
-const LF = "\n" as const;
-const UNKNOWN_ERROR = "UnknownError" as const;
+const NODE_ENV = process.env['NODE_ENV'];
+const PRODUCTION = 'production' as const;
+const END = 'end' as const;
+const LF = '\n' as const;
+const UNKNOWN_ERROR = 'UnknownError' as const;
 const stdoutLineFeed = () => process.stdout.write(LF);
 const stderrLineFeed = () => process.stderr.write(LF);
 const errorToJson = (error: unknown) => {
@@ -54,7 +54,7 @@ const errorToJson = (error: unknown) => {
           ...error,
           name: error.name,
           message: error.message,
-          stack: error.stack?.split("\n"),
+          stack: error.stack?.split('\n'),
         }
       : error;
   return {
