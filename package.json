@@ -1,8 +1,9 @@
 {
   "workspaces": [
-    "packages/cdk",
-    "packages/backend",
-    "packages/frontend"
+    "cdk",
+    "backend",
+    "frontend",
+    "sup"
   ],
   "volta": {
     "node": "16.14.2",

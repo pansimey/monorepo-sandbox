@@ -1,25 +1,17 @@
 {
-  "name": "@monorepo-sandbox/cdk",
+  "name": "@apps/backend",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "jest",
-    "cdk": "cdk"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "devDependencies": {
     "@tsconfig/node16": "1.0.2",
-    "@types/aws-lambda": "8.10.93",
     "@types/jest": "27.4.1",
     "@types/node": "16.11.26",
-    "@types/source-map-support": "0.5.4",
     "@typescript-eslint/eslint-plugin": "5.19.0",
     "@typescript-eslint/parser": "5.19.0",
-    "aws-cdk": "2.20.0",
-    "aws-cdk-lib": "2.20.0",
-    "constructs": "10.0.112",
-    "esbuild": "0.14.35",
     "eslint": "8.13.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
@@ -27,7 +19,9 @@
     "jest": "27.5.1",
     "prettier": "2.6.2",
     "ts-jest": "27.1.4",
-    "ts-node": "10.7.0",
     "typescript": "4.6.3"
+  },
+  "dependencies": {
+    "source-map-support": "0.5.21"
   }
 }
