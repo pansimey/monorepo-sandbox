@@ -72,6 +72,8 @@ export interface UnknownErrorResponse {
   (error: unknown): ErrorHttpResponse;
 }
 
+export const leftover = (error: never): never => error;
+
 interface ProxyHandlerProps<T, E extends BusinessError, U> {
   serviceCommand: ServiceCommand<T>;
   serviceOutput: ServiceOutput<T, E, U>;
