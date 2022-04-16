@@ -47,7 +47,7 @@ const failureResponse: FailureResponse<ShowUserFailure> = (error) => {
         }),
       };
     default:
-      return leftover(error);
+      throw leftover(error);
   }
 };
 
