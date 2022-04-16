@@ -19,12 +19,12 @@ export const applicationService: ApplicationService<
   await Promise.resolve();
   if (Number.isNaN(aCommand.id)) {
     return {
-      type: ResultType.FAILURE,
-      value: new BusinessError('invalid id'),
+      resultType: ResultType.FAILURE,
+      resultValue: new BusinessError('invalid id'),
     };
   }
   return {
-    type: ResultType.SUCCESS,
-    value: { id: aCommand.id },
+    resultType: ResultType.SUCCESS,
+    resultValue: { id: aCommand.id },
   };
 };

@@ -51,7 +51,7 @@ interface ErrorHttpResponse extends APIGatewayProxyResult {
 
 const isFailure = <E extends BusinessError, T>(
   result: Result<E, T>
-): result is Failure<E> => result.type === ResultType.FAILURE;
+): result is Failure<E> => result.resultType === ResultType.FAILURE;
 
 export const responseBody = <T>(response: T): string =>
   JSON.stringify(response);
@@ -92,10 +92,10 @@ export const proxyHandler =
     try {
       const result = await serviceOutput(serviceCommand(event));
       if (isFailure(result)) {
-        logger.warn(result.value);
-        return failureResponse(result.value);
+        logger.warn(result.resultValue);
+        return failureResponse(result.resultValue);
       }
-      return successResponse(result.value);
+      return successResponse(result.resultValue);
     } catch (error) {
       logger.error(error);
       return unknownErrorResponse(error);

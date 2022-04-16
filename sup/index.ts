@@ -21,13 +21,13 @@ export const ResultType = {
 type ResultType = typeof ResultType[keyof typeof ResultType];
 
 export interface Failure<E extends BusinessError> {
-  type: typeof ResultType.FAILURE;
-  value: E;
+  resultType: typeof ResultType.FAILURE;
+  resultValue: E;
 }
 
 interface Success<T> {
-  type: typeof ResultType.SUCCESS;
-  value: T;
+  resultType: typeof ResultType.SUCCESS;
+  resultValue: T;
 }
 
 export type Result<E extends BusinessError, T> = Failure<E> | Success<T>;
