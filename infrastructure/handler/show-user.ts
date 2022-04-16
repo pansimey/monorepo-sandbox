@@ -4,7 +4,6 @@ import {
   ShowUserException,
 } from '@apps/backend/application-service/show-user';
 import { User } from '@apps/backend/entity/user';
-import { UserOfId } from '@apps/backend/repository/user'; // FIXME
 import {
   ErrorHttpStatusCode,
   FailureHttpStatusCode,
@@ -17,15 +16,11 @@ import {
   SuccessResponse,
   UnknownErrorResponse,
 } from '@libs/sup/aws-lambda';
+import { userOfId } from '../repository/user/user-of-id';
 
 const serviceCommand: ServiceCommand<ShowUserCommand> = (event) => ({
   userId: event.pathParameters?.['userId'] || '',
 });
-
-// FIXME
-const userOfId: UserOfId = async (userId) => {
-  return await Promise.resolve({ userId });
-};
 
 const serviceOutput = applicationService({
   userOfId,
@@ -56,9 +51,15 @@ const failureResponse: FailureResponse<ShowUserException> = (error) => {
   }
 };
 
+interface ShowUserResponse {
+  userId: string;
+}
+
 const successResponse: SuccessResponse<User> = (user) => ({
   statusCode: SuccessHttpStatusCode.OK,
-  body: responseBody<User>(user),
+  body: responseBody<ShowUserResponse>({
+    userId: user.userId,
+  }),
 });
 
 const unknownErrorResponse: UnknownErrorResponse = () => ({
