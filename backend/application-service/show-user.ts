@@ -2,7 +2,7 @@ import { ApplicationService, BusinessError, ResultType } from '@libs/sup';
 import { User } from '../entity/user';
 import { UserOfId } from '../repository/user';
 
-export interface ShowUserCommand {
+export interface ShowUser {
   userId: string;
 }
 
@@ -22,7 +22,7 @@ class UserNotFound extends BusinessError {
   }
 }
 
-export type ShowUserException = InvalidUserId | UserNotFound;
+export type ShowUserFailure = InvalidUserId | UserNotFound;
 
 interface Registry {
   userOfId: UserOfId;
@@ -30,8 +30,8 @@ interface Registry {
 
 export const applicationService: ApplicationService<
   Registry,
-  ShowUserCommand,
-  ShowUserException,
+  ShowUser,
+  ShowUserFailure,
   User
 > =
   ({ userOfId }) =>

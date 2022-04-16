@@ -1,7 +1,7 @@
 import {
   applicationService,
-  ShowUserCommand,
-  ShowUserException,
+  ShowUser,
+  ShowUserFailure,
 } from '@apps/backend/application-service/show-user';
 import { User } from '@apps/backend/entity/user';
 import {
@@ -18,7 +18,7 @@ import {
 } from '@libs/sup/aws-lambda';
 import { userOfId } from '../repository/user/user-of-id';
 
-const serviceCommand: ServiceCommand<ShowUserCommand> = (event) => ({
+const serviceCommand: ServiceCommand<ShowUser> = (event) => ({
   userId: event.pathParameters?.['userId'] || '',
 });
 
@@ -30,7 +30,7 @@ interface ErrorResponseBody {
   message: string;
 }
 
-const failureResponse: FailureResponse<ShowUserException> = (error) => {
+const failureResponse: FailureResponse<ShowUserFailure> = (error) => {
   switch (error.name) {
     case 'InvalidUserId':
       return {
@@ -51,13 +51,13 @@ const failureResponse: FailureResponse<ShowUserException> = (error) => {
   }
 };
 
-interface ShowUserResponse {
+interface OkResponse {
   userId: string;
 }
 
 const successResponse: SuccessResponse<User> = (user) => ({
   statusCode: SuccessHttpStatusCode.OK,
-  body: responseBody<ShowUserResponse>({
+  body: responseBody<OkResponse>({
     userId: user.userId,
   }),
 });
