@@ -51,13 +51,13 @@ const failureResponse: FailureResponse<ShowUserFailure> = (error) => {
   }
 };
 
-interface OkResponse {
+interface OkResponseBody {
   userId: string;
 }
 
 const successResponse: SuccessResponse<User> = (user) => ({
   statusCode: SuccessHttpStatusCode.OK,
-  body: responseBody<OkResponse>({
+  body: responseBody<OkResponseBody>({
     userId: user.userId,
   }),
 });
