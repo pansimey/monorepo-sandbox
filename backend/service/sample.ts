@@ -25,6 +25,8 @@ export const applicationService: ApplicationService<
   }
   return {
     resultType: ResultType.SUCCESS,
-    resultValue: { id: aCommand.id },
+    resultValue: {
+      id: aCommand.id,
+    },
   };
 };
