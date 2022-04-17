@@ -5,12 +5,10 @@ import { User } from '../entity/user';
 import { UserOfId } from '../repository/user';
 import { applicationService, ShowUserResult } from './show-user';
 
-const userOfIdSuccess = async () => {
-  const user: User = {
+const userOfIdSuccess = async () =>
+  await Promise.resolve<User>({
     userId: 'Dummy User',
-  };
-  return await Promise.resolve(user);
-};
+  });
 
 describe('ユースケース：ユーザー情報を表示する', () => {
   let userOfId: UserOfId;
