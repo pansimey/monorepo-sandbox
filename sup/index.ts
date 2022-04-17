@@ -40,12 +40,12 @@ export const isSuccess = <E extends BusinessError, T>(
 
 export type Result<E extends BusinessError, T> = Failure<E> | Success<T>;
 
-export interface ServiceOutput<T, E extends BusinessError, U> {
-  (command: T): Promise<Result<E, U>>;
+export interface ServiceOutput<T, U> {
+  (command: T): Promise<U>;
 }
 
-export interface ApplicationService<T, U, E extends BusinessError, V> {
-  (registry: T): ServiceOutput<U, E, V>;
+export interface ApplicationService<T, U, V> {
+  (registry: T): ServiceOutput<U, V>;
 }
 
 const NODE_ENV = process.env['NODE_ENV'];

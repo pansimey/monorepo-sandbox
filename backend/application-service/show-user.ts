@@ -1,4 +1,9 @@
-import { ApplicationService, BusinessError, ResultType } from '@libs/sup';
+import {
+  ApplicationService,
+  BusinessError,
+  Result,
+  ResultType,
+} from '@libs/sup';
 import { User } from '../entity/user';
 import { UserOfId } from '../repository/user';
 
@@ -28,11 +33,12 @@ interface Registry {
   userOfId: UserOfId;
 }
 
+export type ShowUserResult = Result<ShowUserFailure, User>;
+
 export const applicationService: ApplicationService<
   Registry,
   ShowUser,
-  ShowUserFailure,
-  User
+  ShowUserResult
 > =
   ({ userOfId }) =>
   async ({ userId }) => {

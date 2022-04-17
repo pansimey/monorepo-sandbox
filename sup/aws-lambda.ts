@@ -4,7 +4,13 @@ import {
   APIGatewayProxyResult,
 } from 'aws-lambda';
 import 'source-map-support/register';
-import { BusinessError, isFailure, logger, ServiceOutput } from '@libs/sup';
+import {
+  BusinessError,
+  isFailure,
+  logger,
+  Result,
+  ServiceOutput,
+} from '@libs/sup';
 
 export const SuccessHttpStatusCode = {
   OK: 200,
@@ -65,7 +71,7 @@ export const leftover = (error: never): never => error;
 
 interface ProxyHandlerProps<T, E extends BusinessError, U> {
   serviceCommand: ServiceCommand<T>;
-  serviceOutput: ServiceOutput<T, E, U>;
+  serviceOutput: ServiceOutput<T, Result<E, U>>;
   failureResponse: FailureResponse<E>;
   successResponse: SuccessResponse<U>;
   unknownErrorResponse: UnknownErrorResponse;

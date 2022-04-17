@@ -1,10 +1,10 @@
-import { isFailure, isSuccess, Result } from '@libs/sup';
+import { isFailure, isSuccess } from '@libs/sup';
 import { User } from '../entity/user';
 import { UserOfId } from '../repository/user';
 import {
   applicationService,
   InvalidUserId,
-  ShowUserFailure,
+  ShowUserResult,
   UserNotFound,
 } from './show-user';
 
@@ -17,7 +17,7 @@ const userOfIdSuccess = async () => {
 
 describe('ユースケース：ユーザー情報を表示する', () => {
   let userOfId: UserOfId;
-  let result: Result<ShowUserFailure, User>;
+  let result: ShowUserResult;
 
   describe('正常系', () => {
     beforeEach(async () => {
