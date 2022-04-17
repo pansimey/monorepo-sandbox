@@ -5,7 +5,7 @@ import { User } from '../entity/user';
 import { UserOfId } from '../repository/user';
 import { applicationService, ShowUserResult } from './show-user';
 
-const userOfIdSuccess = async () =>
+const userOfIdSuccess: UserOfId = async () =>
   await Promise.resolve<User>({
     userId: 'Dummy User',
   });
