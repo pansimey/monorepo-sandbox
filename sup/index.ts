@@ -30,6 +30,8 @@ interface Success<T> {
   resultValue: T;
 }
 
+export type Result<E extends BusinessError, T> = Failure<E> | Success<T>;
+
 export const isFailure = <E extends BusinessError, T>(
   result: Result<E, T>
 ): result is Failure<E> => result.resultType === ResultType.FAILURE;
@@ -37,8 +39,6 @@ export const isFailure = <E extends BusinessError, T>(
 export const isSuccess = <E extends BusinessError, T>(
   result: Result<E, T>
 ): result is Success<T> => result.resultType === ResultType.SUCCESS;
-
-export type Result<E extends BusinessError, T> = Failure<E> | Success<T>;
 
 export interface ServiceOutput<T, U> {
   (command: T): Promise<U>;
