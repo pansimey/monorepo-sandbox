@@ -16,10 +16,25 @@ import {
   SuccessResponse,
   UnknownErrorResponse,
 } from '@libs/sup/aws-lambda';
-import { userOfId } from '../repository/user/user-of-id';
+import { userOfIdRepository } from '../repository/user/user-of-id';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
+
+const userTableName = process.env['USER_TABLE_NAME'];
+if (!userTableName) {
+  throw new Error('process.env["USER_TABLE_NAME"] not found');
+}
 
 const serviceCommand: ServiceCommand<ShowUser> = (event) => ({
   userId: event.pathParameters?.['userId'] || '',
+});
+
+const client = new DynamoDBClient({});
+const ddbDocClient = DynamoDBDocumentClient.from(client);
+
+const userOfId = userOfIdRepository({
+  userTableName,
+  ddbDocClient,
 });
 
 const serviceOutput = applicationService({
