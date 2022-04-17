@@ -29,7 +29,7 @@ describe('ユースケース：ユーザー情報を表示する', () => {
     });
 
     test('結果が成功であること', () => {
-      expect(isSuccess(result)).toBeTruthy();
+      expect(isSuccess(result)).toStrictEqual(true);
     });
 
     test('結果の値としてユーザー情報が返却されること', () => {
@@ -54,7 +54,7 @@ describe('ユースケース：ユーザー情報を表示する', () => {
     });
 
     test('結果が失敗であること', () => {
-      expect(isFailure(result)).toBeTruthy();
+      expect(isFailure(result)).toStrictEqual(true);
     });
 
     test('結果の値としてInvalidUserIdオブジェクトが返却されること', () => {
@@ -79,7 +79,7 @@ describe('ユースケース：ユーザー情報を表示する', () => {
     });
 
     test('結果が失敗であること', () => {
-      expect(isFailure(result)).toBeTruthy();
+      expect(isFailure(result)).toStrictEqual(true);
     });
 
     test('結果の値としてUserNotFoundオブジェクトが返却されること', () => {
