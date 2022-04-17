@@ -4,14 +4,7 @@ import {
   APIGatewayProxyResult,
 } from 'aws-lambda';
 import 'source-map-support/register';
-import {
-  BusinessError,
-  Failure,
-  logger,
-  Result,
-  ResultType,
-  ServiceOutput,
-} from '@libs/sup';
+import { BusinessError, isFailure, logger, ServiceOutput } from '@libs/sup';
 
 export const SuccessHttpStatusCode = {
   OK: 200,
@@ -48,10 +41,6 @@ interface FailureHttpResponse extends APIGatewayProxyResult {
 interface ErrorHttpResponse extends APIGatewayProxyResult {
   statusCode: ErrorHttpStatusCode;
 }
-
-const isFailure = <E extends BusinessError, T>(
-  result: Result<E, T>
-): result is Failure<E> => result.resultType === ResultType.FAILURE;
 
 export const responseBody = <T>(response: T): string =>
   JSON.stringify(response);

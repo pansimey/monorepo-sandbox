@@ -6,7 +6,7 @@ export interface ShowUser {
   userId: string;
 }
 
-class InvalidUserId extends BusinessError {
+export class InvalidUserId extends BusinessError {
   override name = 'InvalidUserId' as const;
 
   constructor() {
@@ -14,7 +14,7 @@ class InvalidUserId extends BusinessError {
   }
 }
 
-class UserNotFound extends BusinessError {
+export class UserNotFound extends BusinessError {
   override name = 'UserNotFound' as const;
 
   constructor() {
