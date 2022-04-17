@@ -1,17 +1,21 @@
 import { User } from '@apps/backend/entity/user';
-import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
+import {
+  DynamoDBDocumentClient,
+  GetCommandOutput,
+} from '@aws-sdk/lib-dynamodb';
 import { userOfIdRepository } from './user-of-id';
+
+const dummyOutputSuccess = {} as GetCommandOutput;
+dummyOutputSuccess.Item = { userId: 'DummyUser' };
 
 describe('UserOfId', () => {
   let user: User | undefined;
-  let send: DynamoDBDocumentClient['send'];
+  const send = jest.fn();
 
   describe('正常系', () => {
     beforeEach(async () => {
       const ddbDocClient = {} as DynamoDBDocumentClient;
-      send = jest.fn().mockResolvedValue({
-        Item: { userId: 'DummyUser' },
-      });
+      send.mockResolvedValue(dummyOutputSuccess);
       ddbDocClient.send = send;
       const userOfId = userOfIdRepository({
         userTableName: 'UserTable',
