@@ -1,30 +1,11 @@
-import {
-  ApplicationService,
-  BusinessError,
-  Result,
-  ResultType,
-} from '@libs/sup';
+import { ApplicationService, Result, ResultType } from '@libs/sup';
+import { InvalidUserId } from '../business-error/invalid-user-id';
+import { UserNotFound } from '../business-error/user-not-found';
 import { User } from '../entity/user';
 import { UserOfId } from '../repository/user';
 
 export interface ShowUser {
   userId: string;
-}
-
-export class InvalidUserId extends BusinessError {
-  override name = 'InvalidUserId' as const;
-
-  constructor() {
-    super('Invalid User ID');
-  }
-}
-
-export class UserNotFound extends BusinessError {
-  override name = 'UserNotFound' as const;
-
-  constructor() {
-    super('User Not Found');
-  }
 }
 
 export type ShowUserFailure = InvalidUserId | UserNotFound;

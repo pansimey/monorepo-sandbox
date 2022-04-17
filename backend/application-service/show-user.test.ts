@@ -1,12 +1,9 @@
 import { isFailure, isSuccess } from '@libs/sup';
+import { InvalidUserId } from '../business-error/invalid-user-id';
+import { UserNotFound } from '../business-error/user-not-found';
 import { User } from '../entity/user';
 import { UserOfId } from '../repository/user';
-import {
-  applicationService,
-  InvalidUserId,
-  ShowUserResult,
-  UserNotFound,
-} from './show-user';
+import { applicationService, ShowUserResult } from './show-user';
 
 const userOfIdSuccess = async () => {
   const user: User = {
