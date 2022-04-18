@@ -7,7 +7,7 @@ import 'source-map-support/register';
 import {
   BusinessError,
   isFailure,
-  logger,
+  buildLogger,
   Result,
   ServiceOutput,
 } from '@libs/sup';
@@ -76,6 +76,8 @@ interface ProxyHandlerProps<T, E extends BusinessError, U> {
   successResponse: SuccessResponse<U>;
   unknownErrorResponse: UnknownErrorResponse;
 }
+
+const logger = buildLogger();
 
 export const proxyHandler =
   <T, E extends BusinessError, U>({

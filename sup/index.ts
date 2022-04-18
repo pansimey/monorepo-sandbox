@@ -1,4 +1,5 @@
 import { Readable } from 'stream';
+import { WriteStream } from 'tty';
 
 export class BusinessError extends Error {
   type = 'BusinessError' as const;
@@ -53,8 +54,6 @@ const PRODUCTION = 'production' as const;
 const END = 'end' as const;
 const LF = '\n' as const;
 const UNKNOWN_ERROR = 'UnknownError' as const;
-const stdoutLineFeed = () => process.stdout.write(LF);
-const stderrLineFeed = () => process.stderr.write(LF);
 const errorToJson = (error: unknown) => {
   const unknownError =
     error instanceof Error
@@ -71,28 +70,50 @@ const errorToJson = (error: unknown) => {
   };
 };
 
-export const logger = {
-  debug: <T>(message: T): void => {
-    if (NODE_ENV === PRODUCTION) {
-      return;
-    }
-    const readable = Readable.from(JSON.stringify(message));
-    readable.on(END, stdoutLineFeed);
-    readable.pipe(process.stdout);
-  },
-  info: <T>(message: T): void => {
-    const readable = Readable.from(JSON.stringify(message));
-    readable.on(END, stdoutLineFeed);
-    readable.pipe(process.stdout);
-  },
-  warn: <E extends BusinessError>(error: E): void => {
-    const readable = Readable.from(JSON.stringify(error));
-    readable.on(END, stderrLineFeed);
-    readable.pipe(process.stderr);
-  },
-  error: (error: unknown): void => {
-    const readable = Readable.from(JSON.stringify(errorToJson(error)));
-    readable.on(END, stderrLineFeed);
-    readable.pipe(process.stderr);
-  },
+interface BuildLoggerProps {
+  out?: WriteStream;
+  err?: WriteStream;
+}
+
+interface Logger {
+  debug: <T>(message: T) => void;
+  info: <T>(message: T) => void;
+  warn: <E extends BusinessError>(error: E) => void;
+  error: (error: unknown) => void;
+}
+
+interface BuildLogger {
+  (props?: BuildLoggerProps): Logger;
+}
+
+export const buildLogger: BuildLogger = (props) => {
+  const wsout = props?.out || process.stdout;
+  const wserr = props?.err || process.stderr;
+  const stdoutLineFeed = () => wsout.write(LF);
+  const stderrLineFeed = () => wserr.write(LF);
+  return {
+    debug: <T>(message: T): void => {
+      if (NODE_ENV === PRODUCTION) {
+        return;
+      }
+      const readable = Readable.from(JSON.stringify(message));
+      readable.on(END, stdoutLineFeed);
+      readable.pipe(wsout);
+    },
+    info: <T>(message: T): void => {
+      const readable = Readable.from(JSON.stringify(message));
+      readable.on(END, stdoutLineFeed);
+      readable.pipe(wsout);
+    },
+    warn: <E extends BusinessError>(error: E): void => {
+      const readable = Readable.from(JSON.stringify(error));
+      readable.on(END, stderrLineFeed);
+      readable.pipe(wserr);
+    },
+    error: (error: unknown): void => {
+      const readable = Readable.from(JSON.stringify(errorToJson(error)));
+      readable.on(END, stderrLineFeed);
+      readable.pipe(wserr);
+    },
+  };
 };
