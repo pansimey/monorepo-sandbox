@@ -1,9 +1,9 @@
+import 'source-map-support/register';
 import {
   APIGatewayProxyEvent,
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
 } from 'aws-lambda';
-import 'source-map-support/register';
 import {
   BusinessError,
   isFailure,
