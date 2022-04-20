@@ -89,30 +89,30 @@ interface BuildLogger {
 export const buildLogger: BuildLogger = (props) => {
   const wsout = props?.out || process.stdout;
   const wserr = props?.err || process.stderr;
-  const stdoutLineFeed = () => wsout.write(LF);
-  const stderrLineFeed = () => wserr.write(LF);
+  const outLineFeed = () => wsout.write(LF);
+  const errLineFeed = () => wserr.write(LF);
   return {
     debug: <T>(message: T): void => {
       if (NODE_ENV === PRODUCTION) {
         return;
       }
       const readable = Readable.from(JSON.stringify(message));
-      readable.on(END, stdoutLineFeed);
+      readable.on(END, outLineFeed);
       readable.pipe(wsout);
     },
     info: <T>(message: T): void => {
       const readable = Readable.from(JSON.stringify(message));
-      readable.on(END, stdoutLineFeed);
+      readable.on(END, outLineFeed);
       readable.pipe(wsout);
     },
     warn: <E extends BusinessError>(error: E): void => {
       const readable = Readable.from(JSON.stringify(error));
-      readable.on(END, stderrLineFeed);
+      readable.on(END, errLineFeed);
       readable.pipe(wserr);
     },
     error: (error: unknown): void => {
       const readable = Readable.from(JSON.stringify(errorToJson(error)));
-      readable.on(END, stderrLineFeed);
+      readable.on(END, errLineFeed);
       readable.pipe(wserr);
     },
   };
