@@ -11,7 +11,8 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noEmit": true
+    "noEmit": true,
+    "useDefineForClassFields": true
   },
   "exclude": ["cdk.out"]
 }
