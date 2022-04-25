@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.76.0",
-    "@aws-sdk/lib-dynamodb": "3.75.0"
+    "@aws-sdk/lib-dynamodb": "3.76.0"
   }
 }
