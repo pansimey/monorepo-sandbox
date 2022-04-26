@@ -1,4 +1,4 @@
-import { BusinessError } from '@libs/sup';
+import { BusinessError } from '@libs/sup/src';
 
 export class UserNotFound extends BusinessError {
   override name = 'UserNotFound' as const;

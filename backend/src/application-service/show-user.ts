@@ -1,4 +1,4 @@
-import { ApplicationService, Result, ResultType } from '@libs/sup';
+import { ApplicationService, Result, ResultType } from '@libs/sup/src';
 import { InvalidUserId } from '../business-error/invalid-user-id';
 import { UserNotFound } from '../business-error/user-not-found';
 import { User } from '../entity/user';

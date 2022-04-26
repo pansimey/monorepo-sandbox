@@ -10,7 +10,7 @@ import {
   buildLogger,
   Result,
   ServiceOutput,
-} from '@libs/sup';
+} from '@libs/sup/src';
 
 export const SuccessHttpStatusCode = {
   OK: 200,

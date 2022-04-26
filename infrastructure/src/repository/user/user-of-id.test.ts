@@ -1,4 +1,4 @@
-import { User } from '@apps/backend/entity/user';
+import { User } from '@apps/backend/src/entity/user';
 import {
   DynamoDBDocumentClient,
   GetCommandOutput,

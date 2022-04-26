@@ -2,8 +2,8 @@ import {
   applicationService,
   ShowUser,
   ShowUserFailure,
-} from '@apps/backend/application-service/show-user';
-import { User } from '@apps/backend/entity/user';
+} from '@apps/backend/src/application-service/show-user';
+import { User } from '@apps/backend/src/entity/user';
 import {
   ErrorHttpStatusCode,
   FailureHttpStatusCode,
@@ -15,7 +15,7 @@ import {
   SuccessHttpStatusCode,
   SuccessResponse,
   UnknownErrorResponse,
-} from '@libs/sup/aws-lambda';
+} from '@libs/sup/src/aws-lambda';
 import { userOfIdRepository } from '../repository/user/user-of-id';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';

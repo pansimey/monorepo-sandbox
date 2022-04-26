@@ -1,4 +1,4 @@
-import { UserOfId } from '@apps/backend/repository/user';
+import { UserOfId } from '@apps/backend/src/repository/user';
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
 
 interface UserOfIdDependency {

@@ -1,4 +1,4 @@
-import { BusinessError } from '@libs/sup';
+import { BusinessError } from '@libs/sup/src';
 
 export class InvalidUserId extends BusinessError {
   override name = 'InvalidUserId' as const;

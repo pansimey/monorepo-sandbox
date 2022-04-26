@@ -1,4 +1,4 @@
-import { isFailure, isSuccess } from '@libs/sup';
+import { isFailure, isSuccess } from '@libs/sup/src';
 import { InvalidUserId } from '../business-error/invalid-user-id';
 import { UserNotFound } from '../business-error/user-not-found';
 import { User } from '../entity/user';
