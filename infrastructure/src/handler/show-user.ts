@@ -21,7 +21,7 @@ import { DynamoDB } from 'aws-sdk';
 
 const userTableName = process.env['USER_TABLE_NAME'];
 if (!userTableName) {
-  throw new Error('process.env["USER_TABLE_NAME"] not found');
+  throw new Error('process.env: `USER_TABLE_NAME` not set');
 }
 
 const serviceCommand: ServiceCommand<ShowUserCommand> = (event) => ({
