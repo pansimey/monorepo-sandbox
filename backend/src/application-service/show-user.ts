@@ -4,7 +4,7 @@ import { UserNotFound } from '../business-error/user-not-found';
 import { User } from '../entity/user';
 import { UserOfId } from '../repository/user';
 
-export interface ShowUser {
+export interface ShowUserCommand {
   userId: string;
 }
 
@@ -18,7 +18,7 @@ export type ShowUserResult = Result<ShowUserFailure, User>;
 
 export const applicationService: ApplicationService<
   Registry,
-  ShowUser,
+  ShowUserCommand,
   ShowUserResult
 > =
   ({ userOfId }) =>

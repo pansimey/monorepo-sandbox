@@ -1,6 +1,6 @@
 import {
   applicationService,
-  ShowUser,
+  ShowUserCommand,
   ShowUserFailure,
 } from '@apps/backend/src/application-service/show-user';
 import { User } from '@apps/backend/src/entity/user';
@@ -24,7 +24,7 @@ if (!userTableName) {
   throw new Error('process.env["USER_TABLE_NAME"] not found');
 }
 
-const serviceCommand: ServiceCommand<ShowUser> = (event) => ({
+const serviceCommand: ServiceCommand<ShowUserCommand> = (event) => ({
   userId: event.pathParameters?.['userId'] || '',
 });
 
