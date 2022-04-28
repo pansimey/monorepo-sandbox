@@ -1,5 +1,5 @@
-import { UserOfId } from '@apps/backend/src/repository/user';
-import { DynamoDB } from 'aws-sdk';
+import type { UserOfId } from '@apps/backend/src/repository/user';
+import type { DynamoDB } from 'aws-sdk';
 
 interface UserOfIdDependency {
   userTableName: string;

@@ -3,7 +3,7 @@ import {
   ShowUserCommand,
   ShowUserFailure,
 } from '@apps/backend/src/application-service/show-user';
-import { User } from '@apps/backend/src/entity/user';
+import type { User } from '@apps/backend/src/entity/user';
 import {
   ErrorHttpStatusCode,
   FailureHttpStatusCode,

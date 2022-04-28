@@ -1,5 +1,5 @@
-import { User } from '@apps/backend/src/entity/user';
-import { DynamoDB, Request, AWSError } from 'aws-sdk';
+import type { User } from '@apps/backend/src/entity/user';
+import type { DynamoDB, Request, AWSError } from 'aws-sdk';
 import { userOfIdRepository } from './user-of-id';
 
 const dummyOutputSuccess = {} as DynamoDB.DocumentClient.GetItemOutput;

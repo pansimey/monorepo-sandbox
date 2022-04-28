@@ -1,5 +1,5 @@
 import 'source-map-support/register';
-import {
+import type {
   APIGatewayProxyEvent,
   APIGatewayProxyHandler,
   APIGatewayProxyResult,

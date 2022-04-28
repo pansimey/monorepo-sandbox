@@ -1,7 +1,7 @@
 import { isFailure, isSuccess } from '@libs/sup/src';
 import { InvalidUserId } from '../business-error/invalid-user-id';
 import { UserNotFound } from '../business-error/user-not-found';
-import { User } from '../entity/user';
+import type { User } from '../entity/user';
 import { applicationService, ShowUserResult } from './show-user';
 
 const dummyUser: User = {

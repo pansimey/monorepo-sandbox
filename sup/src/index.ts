@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import { WriteStream } from 'tty';
+import type { WriteStream } from 'tty';
 
 export class BusinessError extends Error {
   type = 'BusinessError' as const;
