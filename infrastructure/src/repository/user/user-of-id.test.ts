@@ -1,22 +1,26 @@
 import { User } from '@apps/backend/src/entity/user';
-import {
-  DynamoDBDocumentClient,
-  GetCommandOutput,
-} from '@aws-sdk/lib-dynamodb';
+import { DynamoDB, Request, AWSError } from 'aws-sdk';
 import { userOfIdRepository } from './user-of-id';
 
-const dummyOutputSuccess = {} as GetCommandOutput;
+const dummyOutputSuccess = {} as DynamoDB.DocumentClient.GetItemOutput;
 dummyOutputSuccess.Item = { userId: 'DummyUser' };
 
 describe('UserOfId', () => {
   let user: User | undefined;
-  const send = jest.fn();
+  const request = {} as Request<
+    DynamoDB.DocumentClient.GetItemOutput,
+    AWSError
+  >;
+  const get = jest.fn();
+  const promise = jest.fn();
 
   describe('正常系', () => {
     beforeEach(async () => {
-      const ddbDocClient = {} as DynamoDBDocumentClient;
-      send.mockResolvedValue(dummyOutputSuccess);
-      ddbDocClient.send = send;
+      const ddbDocClient = {} as DynamoDB.DocumentClient;
+      promise.mockResolvedValue(dummyOutputSuccess);
+      request.promise = promise;
+      get.mockReturnValue(request);
+      ddbDocClient.get = get;
       const userOfId = userOfIdRepository({
         userTableName: 'UserTable',
         ddbDocClient,
@@ -28,8 +32,12 @@ describe('UserOfId', () => {
       expect(user).not.toBeUndefined();
     });
 
-    test('ddbDocClient.sendがコールされること', () => {
-      expect(send).toBeCalled();
+    test('DynamoDB.DocumentClient.get()がコールされること', () => {
+      expect(get).toBeCalled();
+    });
+
+    test('Request.promise()がコールされること', () => {
+      expect(promise).toBeCalled();
     });
   });
 });

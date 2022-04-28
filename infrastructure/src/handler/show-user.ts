@@ -17,8 +17,7 @@ import {
   UnknownErrorResponse,
 } from '@libs/sup/src/aws-lambda';
 import { userOfIdRepository } from '../repository/user/user-of-id';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
+import { DynamoDB } from 'aws-sdk';
 
 const userTableName = process.env['USER_TABLE_NAME'];
 if (!userTableName) {
@@ -29,8 +28,7 @@ const serviceCommand: ServiceCommand<ShowUser> = (event) => ({
   userId: event.pathParameters?.['userId'] || '',
 });
 
-const client = new DynamoDBClient({});
-const ddbDocClient = DynamoDBDocumentClient.from(client);
+const ddbDocClient = new DynamoDB.DocumentClient();
 
 const userOfId = userOfIdRepository({
   userTableName,

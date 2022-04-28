@@ -1,9 +1,9 @@
 import { UserOfId } from '@apps/backend/src/repository/user';
-import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDB } from 'aws-sdk';
 
 interface UserOfIdDependency {
   userTableName: string;
-  ddbDocClient: DynamoDBDocumentClient;
+  ddbDocClient: DynamoDB.DocumentClient;
 }
 
 interface UserOfIdRepository {
@@ -13,11 +13,11 @@ interface UserOfIdRepository {
 export const userOfIdRepository: UserOfIdRepository =
   ({ userTableName, ddbDocClient }) =>
   async (userId) => {
-    const command = new GetCommand({
+    const request = ddbDocClient.get({
       TableName: userTableName,
       Key: { userId },
     });
-    const { Item: item } = await ddbDocClient.send(command);
+    const { Item: item } = await request.promise();
     if (!item) {
       return;
     }
