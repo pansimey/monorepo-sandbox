@@ -3,7 +3,7 @@ import { DynamoDB, Request, AWSError } from 'aws-sdk';
 import { userOfIdRepository } from './user-of-id';
 
 const dummyOutputSuccess = {} as DynamoDB.DocumentClient.GetItemOutput;
-dummyOutputSuccess.Item = { userId: 'DummyUser' };
+dummyOutputSuccess.Item = { userId: 'DummyUserId' };
 
 describe('UserOfId', () => {
   let user: User | undefined;
@@ -30,6 +30,13 @@ describe('UserOfId', () => {
 
     test('ユーザー情報が返却されること', () => {
       expect(user).not.toBeUndefined();
+    });
+
+    test('DBに保持された値が返却されること', () => {
+      if (!user) {
+        throw new Error();
+      }
+      expect(user.userId).toStrictEqual('DummyUserId');
     });
 
     test('DynamoDB.DocumentClient.get()がコールされること', () => {
