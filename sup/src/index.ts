@@ -92,7 +92,7 @@ export const buildLogger: BuildLogger = (props) => {
   const outLineFeed = () => wsout.write(LF);
   const errLineFeed = () => wserr.write(LF);
   return {
-    debug: <T>(message: T): void => {
+    debug: (message: unknown): void => {
       if (NODE_ENV === PRODUCTION) {
         return;
       }
@@ -100,7 +100,7 @@ export const buildLogger: BuildLogger = (props) => {
       readable.on(END, outLineFeed);
       readable.pipe(wsout);
     },
-    info: <T>(message: T): void => {
+    info: (message: unknown): void => {
       const readable = Readable.from(JSON.stringify(message));
       readable.on(END, outLineFeed);
       readable.pipe(wsout);
