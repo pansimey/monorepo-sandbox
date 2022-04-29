@@ -16,7 +16,7 @@ import {
   SuccessResponse,
   UnknownErrorResponse,
 } from '@libs/sup/src/aws-lambda';
-import { userOfIdRepository } from '../repository/user/user-of-id';
+import { userOfIdRepository } from '../src/repository/user/user-of-id';
 import { DynamoDB } from 'aws-sdk';
 
 const userTableName = process.env['USER_TABLE_NAME'];

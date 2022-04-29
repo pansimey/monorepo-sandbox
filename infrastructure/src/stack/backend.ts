@@ -14,7 +14,7 @@ export class BackendStack extends Stack {
       },
     });
     const showUserFunction = new NodejsFunction(this, 'ShowUserFunction', {
-      entry: 'src/handler/show-user.ts',
+      entry: 'handler/show-user.ts',
       bundling: {
         target: 'es2020',
         sourceMap: true,
