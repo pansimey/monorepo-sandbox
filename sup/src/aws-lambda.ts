@@ -79,14 +79,20 @@ interface ProxyHandlerProps<T, E extends BusinessError, U> {
 
 const logger = buildLogger();
 
-export const proxyHandler =
-  <T, E extends BusinessError, U>({
+interface ProxyHandler {
+  <T, E extends BusinessError, U>(
+    props: ProxyHandlerProps<T, E, U>
+  ): APIGatewayProxyHandler;
+}
+
+export const proxyHandler: ProxyHandler =
+  ({
     serviceCommand,
     serviceOutput,
     failureResponse,
     successResponse,
     unknownErrorResponse,
-  }: ProxyHandlerProps<T, E, U>): APIGatewayProxyHandler =>
+  }) =>
   async (event) => {
     try {
       const result = await serviceOutput(serviceCommand(event));
