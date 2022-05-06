@@ -1,10 +1,17 @@
 import { Readable } from 'stream';
 import type { WriteStream } from 'tty';
 
+interface BusinessErrorJson {
+  type: 'BusinessError';
+  name: string;
+  message: string;
+  stack: string[] | undefined;
+}
+
 export class BusinessError extends Error {
   type = 'BusinessError' as const;
 
-  toJSON() {
+  toJSON(): BusinessErrorJson {
     return {
       type: this.type,
       name: this.name,
@@ -54,19 +61,28 @@ const PRODUCTION = 'production' as const;
 const END = 'end' as const;
 const LF = '\n' as const;
 const UNKNOWN_ERROR = 'UnknownError' as const;
-const errorToJson = (error: unknown) => {
-  const unknownError =
-    error instanceof Error
-      ? {
-          ...error,
-          name: error.name,
-          message: error.message,
-          stack: error.stack?.split('\n'),
-        }
-      : error;
+
+interface UnknownErrorJson {
+  type: 'UnknownError';
+  name?: string;
+  message?: string;
+  stack?: string[] | undefined;
+  error: unknown;
+}
+
+const errorToJson = (error: unknown): UnknownErrorJson => {
+  if (error instanceof Error) {
+    return {
+      type: UNKNOWN_ERROR,
+      name: error.name,
+      message: error.message,
+      stack: error.stack?.split('`n'),
+      error,
+    };
+  }
   return {
     type: UNKNOWN_ERROR,
-    error: unknownError,
+    error,
   };
 };
 
