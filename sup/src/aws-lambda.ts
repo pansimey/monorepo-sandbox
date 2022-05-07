@@ -51,8 +51,12 @@ interface ErrorHttpResponse extends APIGatewayProxyResult {
 export const responseBody = <T>(response: T): string =>
   JSON.stringify(response);
 
+interface DefinedJson<T> {
+  toJSON?: () => T;
+}
+
 export interface ServiceCommand<T> {
-  (event: APIGatewayProxyEvent): T;
+  (event: APIGatewayProxyEvent): T & DefinedJson<T>;
 }
 
 export interface FailureResponse<E extends BusinessError> {
@@ -95,7 +99,9 @@ export const proxyHandler: ProxyHandler =
   }) =>
   async (event) => {
     try {
-      const result = await serviceOutput(serviceCommand(event));
+      const command = serviceCommand(event);
+      logger.info(command);
+      const result = await serviceOutput(command);
       if (isFailure(result)) {
         logger.warn(result.resultValue);
         return failureResponse(result.resultValue);
