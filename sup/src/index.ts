@@ -76,7 +76,7 @@ const errorToJson = (error: unknown): UnknownErrorJson => {
       type: UNKNOWN_ERROR,
       name: error.name,
       message: error.message,
-      stack: error.stack?.split('`n'),
+      stack: error.stack?.split('\n'),
       error,
     };
   }
