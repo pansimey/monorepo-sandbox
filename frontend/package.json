@@ -10,7 +10,7 @@
   "devDependencies": {
     "@testing-library/dom": "8.13.0",
     "@tsconfig/node16": "1.0.2",
-    "@types/jest": "27.5.0",
+    "@types/jest": "27.5.1",
     "@types/node": "16.11.34",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.5.0",
