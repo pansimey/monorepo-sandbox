@@ -1,5 +1,6 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import type { Construct } from 'constructs';
+import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Table, AttributeType } from 'aws-cdk-lib/aws-dynamodb';
 
@@ -16,9 +17,10 @@ export class BackendStack extends Stack {
     const showUserFunction = new NodejsFunction(this, 'ShowUserFunction', {
       entry: 'handler/show-user.ts',
       bundling: {
-        target: 'es2020',
+        target: 'es2021',
         sourceMap: true,
       },
+      runtime: Runtime.NODEJS_16_X,
       environment: {
         NODE_ENV: 'production',
         USER_TABLE_NAME: userTable.tableName,
