@@ -20,9 +20,8 @@ export const applicationService: ApplicationService<
   Registry,
   ShowUserCommand,
   ShowUserResult
-> =
-  ({ userOfId }) =>
-  async ({ userId }) => {
+> = ({ userOfId }) => {
+  return async ({ userId }) => {
     if (userId.length === 0) {
       return {
         resultType: ResultType.FAILURE,
@@ -41,3 +40,4 @@ export const applicationService: ApplicationService<
       resultValue: user,
     };
   };
+};

@@ -48,8 +48,9 @@ interface ErrorHttpResponse extends APIGatewayProxyResult {
   statusCode: ErrorHttpStatusCode;
 }
 
-export const responseBody = <T>(response: T): string =>
-  JSON.stringify(response);
+export const responseBody = <T>(response: T): string => {
+  return JSON.stringify(response);
+};
 
 interface DefinedJson<T> {
   toJSON?: () => T;
@@ -81,23 +82,21 @@ interface ProxyHandlerProps<T, E extends BusinessError, U> {
   unknownErrorResponse: UnknownErrorResponse;
 }
 
-const logger = buildLogger();
-
 interface ProxyHandler {
   <T, E extends BusinessError, U>(
     props: ProxyHandlerProps<T, E, U>
   ): APIGatewayProxyHandler;
 }
 
-export const proxyHandler: ProxyHandler =
-  ({
-    serviceCommand,
-    serviceOutput,
-    failureResponse,
-    successResponse,
-    unknownErrorResponse,
-  }) =>
-  async (event) => {
+export const proxyHandler: ProxyHandler = ({
+  serviceCommand,
+  serviceOutput,
+  failureResponse,
+  successResponse,
+  unknownErrorResponse,
+}) => {
+  const logger = buildLogger();
+  return async (event) => {
     try {
       const command = serviceCommand(event);
       logger.info(command);
@@ -106,9 +105,11 @@ export const proxyHandler: ProxyHandler =
         logger.warn(result.resultValue);
         return failureResponse(result.resultValue);
       }
+      logger.info(result.resultValue);
       return successResponse(result.resultValue);
     } catch (error) {
       logger.error(error);
       return unknownErrorResponse(error);
     }
   };
+};

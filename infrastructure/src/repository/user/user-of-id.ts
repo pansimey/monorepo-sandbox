@@ -10,9 +10,11 @@ interface UserOfIdRepository {
   (dependency: UserOfIdDependency): UserOfId;
 }
 
-export const userOfIdRepository: UserOfIdRepository =
-  ({ userTableName, ddbDocClient }) =>
-  async (userId) => {
+export const userOfIdRepository: UserOfIdRepository = ({
+  userTableName,
+  ddbDocClient,
+}) => {
+  return async (userId) => {
     const request = ddbDocClient.get({
       TableName: userTableName,
       Key: { userId },
@@ -29,3 +31,4 @@ export const userOfIdRepository: UserOfIdRepository =
       userId: itemUserId,
     };
   };
+};
