@@ -102,10 +102,10 @@ export const proxyHandler: ProxyHandler = ({
       logger.info(command);
       const result = await serviceOutput(command);
       if (isFailure(result)) {
-        logger.warn(result.resultValue);
+        logger.warn(result);
         return failureResponse(result.resultValue);
       }
-      logger.info(result.resultValue);
+      logger.info(result);
       return successResponse(result.resultValue);
     } catch (error) {
       logger.error(error);
