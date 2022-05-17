@@ -94,7 +94,7 @@ interface BuildLoggerProps {
 interface Logger {
   debug: <T>(message: T) => void;
   info: <T>(message: T) => void;
-  warn: <E extends BusinessError>(error: E) => void;
+  warn: <E extends BusinessError>(error: Failure<E>) => void;
   error: (error: unknown) => void;
 }
 
@@ -121,8 +121,8 @@ export const buildLogger: BuildLogger = (props) => {
       readable.on(END, outLineFeed);
       readable.pipe(wsout);
     },
-    warn: <E extends BusinessError>(error: E): void => {
-      const readable = Readable.from(JSON.stringify(error));
+    warn: <E extends BusinessError>(result: Failure<E>): void => {
+      const readable = Readable.from(JSON.stringify(result));
       readable.on(END, errLineFeed);
       readable.pipe(wserr);
     },
