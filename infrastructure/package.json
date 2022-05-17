@@ -13,7 +13,7 @@
     "@types/jest": "27.5.1",
     "@types/node": "16.11.36",
     "@typescript-eslint/eslint-plugin": "5.24.0",
-    "@typescript-eslint/parser": "5.23.0",
+    "@typescript-eslint/parser": "5.24.0",
     "aws-cdk": "2.24.1",
     "aws-cdk-lib": "2.24.1",
     "aws-sdk": "2.1136.0",
