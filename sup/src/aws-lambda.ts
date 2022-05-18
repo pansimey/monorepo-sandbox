@@ -10,6 +10,7 @@ import {
   buildLogger,
   Result,
   ServiceOutput,
+  Logger,
 } from '@libs/sup/src';
 
 export const SuccessHttpStatusCode = {
@@ -80,6 +81,7 @@ interface ProxyHandlerProps<T, E extends BusinessError, U> {
   failureResponse: FailureResponse<E>;
   successResponse: SuccessResponse<U>;
   unknownErrorResponse: UnknownErrorResponse;
+  logger?: Logger;
 }
 
 interface ProxyHandler {
@@ -94,21 +96,22 @@ export const proxyHandler: ProxyHandler = ({
   failureResponse,
   successResponse,
   unknownErrorResponse,
+  logger,
 }) => {
-  const logger = buildLogger();
+  const handlerLogger = logger || buildLogger();
   return async (event) => {
     try {
-      logger.info(event);
+      handlerLogger.info(event);
       const command = serviceCommand(event);
       const result = await serviceOutput(command);
       if (isFailure(result)) {
-        logger.warn(result);
+        handlerLogger.warn(result);
         return failureResponse(result.resultValue);
       }
-      logger.info(result);
+      handlerLogger.info(result);
       return successResponse(result.resultValue);
     } catch (error) {
-      logger.error(error);
+      handlerLogger.error(error);
       return unknownErrorResponse(error);
     }
   };

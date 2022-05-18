@@ -91,7 +91,7 @@ interface BuildLoggerProps {
   err?: WriteStream;
 }
 
-interface Logger {
+export interface Logger {
   debug: <T>(message: T) => void;
   info: <T>(message: T) => void;
   warn: <E extends BusinessError>(error: Failure<E>) => void;
