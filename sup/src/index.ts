@@ -26,8 +26,6 @@ export const ResultType = {
   SUCCESS: 'Success',
 } as const;
 
-type ResultType = typeof ResultType[keyof typeof ResultType];
-
 interface Failure<E extends BusinessError> {
   resultType: typeof ResultType.FAILURE;
   resultValue: E;
