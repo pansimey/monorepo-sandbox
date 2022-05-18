@@ -98,8 +98,8 @@ export const proxyHandler: ProxyHandler = ({
   const logger = buildLogger();
   return async (event) => {
     try {
+      logger.info(event);
       const command = serviceCommand(event);
-      logger.info(command);
       const result = await serviceOutput(command);
       if (isFailure(result)) {
         logger.warn(result);
