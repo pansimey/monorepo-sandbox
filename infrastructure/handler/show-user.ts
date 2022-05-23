@@ -18,6 +18,7 @@ import {
 } from '@libs/sup/src/aws-lambda';
 import { userOfIdRepository } from '../src/repository/user/user-of-id';
 import { DynamoDB } from 'aws-sdk';
+import { captureAWSClient } from 'aws-xray-sdk-core';
 
 const userTableName = process.env['USER_TABLE_NAME'];
 if (!userTableName) {
@@ -28,7 +29,7 @@ const serviceCommand: ServiceCommand<ShowUserCommand> = (event) => ({
   userId: event.pathParameters?.['userId'] || '',
 });
 
-const ddbDocClient = new DynamoDB.DocumentClient();
+const ddbDocClient = captureAWSClient(new DynamoDB.DocumentClient());
 
 const userOfId = userOfIdRepository({
   userTableName,

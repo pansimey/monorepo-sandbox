@@ -4,6 +4,7 @@ import type {
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
 } from 'aws-lambda';
+import { setLogger } from 'aws-xray-sdk-core';
 import {
   BusinessError,
   isFailure,
@@ -99,6 +100,7 @@ export const proxyHandler: ProxyHandler = ({
   logger,
 }) => {
   const handlerLogger = logger || buildLogger();
+  setLogger(handlerLogger);
   return async (event) => {
     try {
       handlerLogger.info(event);
