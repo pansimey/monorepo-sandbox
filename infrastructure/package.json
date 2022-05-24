@@ -17,7 +17,7 @@
     "aws-cdk": "2.25.0",
     "aws-cdk-lib": "2.25.0",
     "aws-sdk": "2.1141.0",
-    "constructs": "10.1.15",
+    "constructs": "10.1.16",
     "esbuild": "0.14.39",
     "eslint": "8.16.0",
     "eslint-config-prettier": "8.5.0",
