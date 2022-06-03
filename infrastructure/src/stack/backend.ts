@@ -1,39 +1,31 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import type { Construct } from 'constructs';
-import { Runtime, Tracing } from 'aws-cdk-lib/aws-lambda';
-import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { Table, AttributeType } from 'aws-cdk-lib/aws-dynamodb';
+import { UsersStack } from './users';
 
 export class BackendStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
-    const FunctionName = {
-      SHOW_USER: 'ShowUserFunction',
-    } as const;
-    const TableName = {
-      USER: 'UserTable',
-    } as const;
-    const showUserFunction = new NodejsFunction(this, FunctionName.SHOW_USER, {
-      functionName: FunctionName.SHOW_USER,
-      entry: 'handler/show-user.ts',
-      bundling: {
-        target: 'es2021',
-        sourceMap: true,
-      },
-      runtime: Runtime.NODEJS_16_X,
-      environment: {
-        NODE_ENV: 'production',
-        USER_TABLE_NAME: TableName.USER,
-      },
-      tracing: Tracing.ACTIVE,
-    });
-    const userTable = new Table(this, TableName.USER, {
-      tableName: TableName.USER,
+    const userTable = new Table(this, 'UserTable', {
+      tableName: 'UserTable',
       partitionKey: {
         name: 'userId',
         type: AttributeType.STRING,
       },
     });
-    userTable.grantReadData(showUserFunction);
+    const restApi = new RestApi(this, 'MonorepoSandboxApi', {
+      restApiName: 'MonorepoSandboxApi',
+      deployOptions: {
+        stageName: 'v1',
+        tracingEnabled: true,
+      },
+    });
+    restApi.root.addMethod('ANY');
+    new UsersStack(this, {
+      userTableName: userTable.tableName,
+      restApiId: restApi.restApiId,
+      rootResourceId: restApi.restApiRootResourceId,
+    });
   }
 }
