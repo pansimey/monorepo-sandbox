@@ -13,7 +13,7 @@
     "@tsconfig/node16": "1.0.2",
     "@types/aws-lambda": "8.10.97",
     "@types/jest": "27.5.1",
-    "@types/node": "16.11.36",
+    "@types/node": "16.11.38",
     "@types/source-map-support": "0.5.4",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",

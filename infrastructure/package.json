@@ -11,10 +11,10 @@
   "devDependencies": {
     "@tsconfig/node16": "1.0.2",
     "@types/jest": "27.5.1",
-    "@types/node": "16.11.36",
+    "@types/node": "16.11.38",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
-    "aws-cdk": "2.25.0",
+    "aws-cdk": "2.27.0",
     "aws-cdk-lib": "2.27.0",
     "aws-sdk": "2.1145.0",
     "constructs": "10.1.25",
